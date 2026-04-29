@@ -1,0 +1,85 @@
+/* Layout Reset */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+}
+
+/* Header Styling */
+header {
+    background: #2c3e50;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+/* Main Layout Wrapper (Sidebar + Content) */
+.main-wrapper {
+    display: flex;
+    flex: 1; /* Fills space between header and footer */
+}
+
+/* Sidebar Styling */
+nav {
+    width: 240px;
+    background: #ffffff;
+    border-right: 1px solid #dee2e6;
+    padding-top: 20px;
+    min-height: calc(100vh - 120px); /* Adjusts for header/footer */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-bottom: 5px;
+}
+
+nav ul li a {
+    display: block;
+    padding: 12px 25px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+nav ul li a:hover {
+    background-color: #f0f2f5;
+    color: #3498db;
+    border-left: 4px solid #3498db;
+    padding-left: 30px; /* Slight slide effect */
+}
+
+/* Footer Styling */
+footer {
+    background: #2c3e50;
+    color: #bdc3c7;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+}
+
+/* Main Content Area Adjustment */
+/* Add this class to your main content div in your index file */
+.content-area {
+    flex: 1;
+    padding: 30px;
+}

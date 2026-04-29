@@ -1,0 +1,50 @@
+
+
+<div th:fragment="index-content">
+
+    <div class="product-container">
+    
+        <!-- Show Welcome message if logged in, otherwise show Login link -->
+    	<div th:if="${session.userEmail != null}">
+        	<p>Welcome, <span th:text="${session.userEmail}"></span>! | <a th:href="@{/logout}">Logout</a></p>
+   		 </div>
+   		 
+   		 
+        <div th:each="product : ${products}" class="product-card">
+            
+            <!-- IF USER IS LOGGED IN: Allow clicking to add to cart -->
+            
+            <a th:if="${session.userEmail != null}" 
+               th:href="@{/addToCart(name=${product.name}, price=${product.price})}">
+                <img th:src="@{'/product-images/' + ${product.imagePath}}" 
+                     alt="Product Image" style="width:150px; height:auto; cursor:pointer;">
+            </a>
+            
+            
+
+            <!-- IF USER IS NOT LOGGED IN: Redirect to login page on click -->
+            
+            <a th:if="${session.userEmail == null}" th:href="@{/login}">
+                <img th:src="@{'/product-images/' + ${product.imagePath}}" 
+                     alt="Product Image" style="width:150px; height:auto; cursor:pointer;">
+            </a>
+            
+            <h3 th:text="${product.name}">Product Name</h3>
+            <p th:text="'$' + ${product.price}">$0.00</p>
+        </div>
+    </div>
+    
+
+<!-- Show Welcome message if logged in, otherwise show Login link -->
+   
+   
+    <div th:if="${session.userEmail != null}">
+        <p>Welcome, <span th:text="${session.userEmail}"></span>! | <a th:href="@{/logout}">Logout</a></p>
+    </div>
+    
+    <p th:if="${session.userEmail == null}">
+        To Login and Registration: <a th:href="@{/login}"> Log In</a>
+    </p>
+
+    <p>Add Product? <a th:href="@{/add-product}">Add Product</a></p>
+</div>

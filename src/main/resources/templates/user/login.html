@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Login</title>
+
+
+<link rel="stylesheet" th:href="@{/css/header_footer_side_bar.css}">
+
+
+
+</head>
+<body>
+   <!--   <div th:replace="~{fragments :: header}"></div>-->
+   <div th:replace="~{fragments/common :: header}"></div>
+    <div style="display: flex;">
+       <!--  <div th:replace="~{fragments :: sidebar}"></div>-->
+        <div th:replace="~{fragments/common :: sidebar}"></div>
+        <main>
+            <h2>Login</h2>
+            
+            <form th:action="@{/login}" method="post">
+             	 <input type="email" name="email" required /> 
+             	  <input type="password" name="password" required />
+                <!-- <input type="email" name="email" placeholder="email" required />
+                <input type="password" name="password" placeholder="password" required />-->
+                
+                <button type="submit">Sign In</button>
+            </form>
+            
+            <div th:if="${error}" style="color: red; margin-bottom: 10px;">
+    			<p th:text="${error}"></p>
+			</div>
+            <p>New here? <a th:href="@{/register}">Register now</a></p>
+        </main>
+    </div>
+  <!--  <div th:replace="~{fragments :: footer}"></div>-->
+  
+  <div th:replace="~{fragments/common :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+/* Product Grid Styling */
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    padding: 10px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: scale(1.02);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Links and spacing at the bottom */
+.footer-links {
+    margin-top: 20px;
+}
+
+/* Responsive: 2 items on tablets, 1 on mobile */
+@media (max-width: 900px) {
+    .product-container { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+    .product-container { grid-template-columns: 1fr; }
+}

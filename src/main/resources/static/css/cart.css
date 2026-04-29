@@ -1,0 +1,119 @@
+/* 1. Center the entire main window */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: #f3f4f6; /* Light grey background */
+}
+
+.main-window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 2. Style the Cart Container as a Card */
+.cart-container {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    width: 90%;
+    max-width: 850px;
+    text-align: center;
+}
+
+h2 {
+    color: #1f2937;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+h2 span {
+    color: #6366f1; /* Brand color (Indigo) */
+    font-weight: bold;
+}
+
+/* 3. Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    border: none !important; /* Overrides the border="1" */
+}
+
+thead tr {
+    background-color: #f9fafb;
+}
+
+th {
+    padding: 12px;
+    color: #4b5563;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+td {
+    padding: 16px 12px;
+    color: #374151;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: middle;
+}
+
+/* 4. Quantity Buttons styling */
+button {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #6366f1;
+    color: white;
+    border-color: #6366f1;
+}
+
+span[id^="qty-"] {
+    margin: 0 12px;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+/* 5. Totals Styling */
+#grand-total {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #059669; /* Emerald Green */
+}
+
+tfoot tr {
+    background-color: #f9fafb;
+}
+
+/* 6. Links & Buttons */
+a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #4338ca;
+    text-decoration: underline;
+}
+
+.cart-container p {
+    color: #6b7280;
+    font-size: 1.1rem;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+
+<link rel="stylesheet" th:href="@{/css/header_footer_side_bar.css}">
+
+
+</head>
+<body>
+    <!-- Header Fragment -->
+    <header th:fragment="header">
+        <h1>My Website Header</h1>
+    </header>
+
+    <!-- Sidebar Fragment (Your specific code) -->
+    <nav th:fragment="sidebar">
+        <ul>
+            <li><a href="#">Product</a></li>
+            <li><a href="#">Store</a></li>
+            <li><a href="#">Online Segments</a></li>
+            <li><a href="#">Play Game</a></li>
+            <li><a href="#">Merchandise</a></li>
+            <li><a href="#">Old Item</a></li>
+            <li><a href="#">Dropbox</a></li>
+        </ul>
+    </nav>
+
+    <!-- Footer Fragment -->
+    <footer th:fragment="footer">
+        <p>&copy; 2026 My Spring Boot Project</p>
+    </footer>
+</body>
+</html>
