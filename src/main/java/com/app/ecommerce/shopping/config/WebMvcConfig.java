@@ -10,6 +10,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Expose your external folder to the web at the path "/product-images/"
         registry.addResourceHandler("/product-images/**")
-                .addResourceLocations("file:D:/SpringInitializr/com.app.ecommerce.shopping/ItemImages/");
+                .addResourceLocations("file:ItemImages/");
     }
 }
