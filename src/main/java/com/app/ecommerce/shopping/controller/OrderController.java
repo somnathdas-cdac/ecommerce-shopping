@@ -168,4 +168,37 @@ public class OrderController {
         
       */  
     
+    @GetMapping("/product")
+    public String showProducts(Model model) {
+        model.addAttribute("content", "sidePanel/product:: product-content");
+        // Add product list to model
+        return "sidePanel/sideMain"; // One HTML file for multiple purposes
+    }
+    
+    @GetMapping("/store")
+    public String showStore(Model model) {
+    	//"content", "index :: index-content"
+        model.addAttribute("content", "sidePanel/store:: store-content");
+        return "sidePanel/sideMain";
+    }
+    
+    @GetMapping("/merchandise")
+    public String merchandise(Model model) {
+    	model.addAttribute("content", "sidePanel/merchandise:: merchandise-content");
+        return "sidePanel/sideMain";
+    }
+    
+    @GetMapping("/oldItems")
+    public String oldItems(Model model) {
+    	model.addAttribute("content", "sidePanel/oldItems:: oldItems-content");
+        return "sidePanel/sideMain";
+    }
+    
+    @GetMapping("/dropBox")
+    public String dropBox(Model model) {
+    	model.addAttribute("content", "sidePanel/dropBox:: dropBox-content");
+        return "sidePanel/sideMain";
+    }
+    
+    
 }

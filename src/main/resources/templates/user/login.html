@@ -29,6 +29,13 @@
             <div th:if="${error}" style="color: red; margin-bottom: 10px;">
     			<p th:text="${error}"></p>
 			</div>
+			
+			<div style="background-color: #f8f9fa; border: 1px solid #dee2e6; color: #495057; padding: 15px; border-radius: 8px; font-family: sans-serif; max-width: 300px; margin: 10px 0; font-size: 14px; line-height: 1.5;">
+              <strong style="display: block; margin-bottom: 5px; color: #212529;">Defaults Login Credentials:</strong>
+  				<p style="margin: 0;">Email: <span style="font-family: monospace; background: #e9ecef; padding: 2px 4px; border-radius: 3px;">guest@guest.com</span></p>
+  				<p style="margin: 0;">Password: <span style="font-family: monospace; background: #e9ecef; padding: 2px 4px; border-radius: 3px;">guest1234</span></p>
+			</div>
+			
             <p>New here? <a th:href="@{/register}">Register now</a></p>
         </main>
     </div>
