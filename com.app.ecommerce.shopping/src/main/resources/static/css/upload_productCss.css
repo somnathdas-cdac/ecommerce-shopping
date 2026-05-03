@@ -1,0 +1,67 @@
+/* Reuse the action-box style and add form-specific alignment */
+.action-box, .form-container {
+    background-color: #e8ecef; /* Light contrast color */
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #dee2e6;
+    width: 100%;
+    max-width: 400px; /* Limits width so it doesn't stretch too far */
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Aligning the input rows */
+.form-container div {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-container label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+/* Modern Text Box Styling */
+.form-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-container input:focus {
+    border-color: #3498db;
+}
+
+/* Button Styling */
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #27ae60; /* Green for "Submit" */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.form-container button:hover {
+    background-color: #219150;
+}
+
+/* Success Message */
+.success-msg {
+    margin-top: 15px;
+    font-weight: 500;
+    background: #d4edda;
+    padding: 10px;
+    border-radius: 6px;
+}
