@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Spring Boot App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/header_footer_side_bar.css}">
+    <style>
+        .container { display: flex; flex-direction: column; height: 100vh; }
+        .middle-section { display: flex; flex: 1; }
+        .sidebar-container { width: 200px; background: #f4f4f4; }
+        .main-window { flex: 1; padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Reusable Header -->
+        <div th:replace="~{fragments/common :: header}"></div>
+
+        <div class="middle-section">
+            <!-- Reusable Sidebar -->
+            <aside class="sidebar-container">
+                <div th:replace="~{fragments/common :: sidebar}"></div>
+            </aside>
+
+            <!-- DYNAMIC MAIN WINDOW -->
+            <main class="main-window">
+               <div th:replace="~{__${content}__}"></div>
+
+       
+       
+       
+                
+                <!-- Replace this: 
+<div th:replace="~{${content}}"></div>-->
+
+<!-- With this: 
+<div th:replace="~{__${content}__}"></div>-->
+
+
+<h2>Our Products</h2>
+			
+	
+<h2>Our Products------</h2>
+                  
+                
+                
+                
+         </main>
+ </div>
+
+        <!-- Reusable Footer -->
+        <div th:replace="~{fragments/common :: footer}"></div>
+    </div>
+</body>
+</html>
