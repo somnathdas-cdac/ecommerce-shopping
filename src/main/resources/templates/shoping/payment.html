@@ -1,18 +1,27 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
-    <title>Spring Boot App</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-     <link rel="stylesheet" th:href="@{/css/header_footer_side_bar.css}">
-    <style>
+<head><title>Payment Page</title>
+
+<link rel="stylesheet" th:href="@{/css/header_footer_side_bar.css}">
+<link rel="stylesheet" th:href="@{/css/cart.css}">
+ <style>
         .container { display: flex; flex-direction: column; height: 100vh; }
         .middle-section { display: flex; flex: 1; }
         .sidebar-container { width: 200px; background: #f4f4f4; }
         .main-window { flex: 1; padding: 20px; }
     </style>
+
+
 </head>
+
+
+
+
+
 <body>
-    <div class="container">
+
+ <div class="container">
         <!-- Reusable Header -->
         <div th:replace="~{fragments/common :: header}"></div>
 
@@ -22,34 +31,52 @@
                 <div th:replace="~{fragments/common :: sidebar}"></div>
             </aside>
 
-            <!-- DYNAMIC MAIN WINDOW -->
+
+
+
+
+  <!-- DYNAMIC MAIN WINDOW -->
+  
+  
             <main class="main-window">
-               <div th:replace="~{__${content}__}"></div>
+            
+				<div class="cart-container">
+            
+            
+            
+            
+		             <h2 th:if="${session.userEmail != null}">
+		              Shopping Cart for: <span th:text="${session.userEmail}"></span>
+		             </h2>
+            
+                     <hi>This is the Payment Pages</hi>
+					 
+					 <p> Your Purchase items , Id, email, Quantities, Total Price is uploaded to Database.</p>
+            
+            
+            
+            
 
-       
-       
-       
-                
-                <!-- Replace this: 
-<div th:replace="~{${content}}"></div>-->
-
-<!-- With this: 
-<div th:replace="~{__${content}__}"></div>-->
-
-
-<h2>Our Products</h2>
-			
-	
-<h2>Our Products------</h2>
-                  
-                
-                
-                
-         </main>
+  
+  
+  
+      
+  
+    
+    
+    
+       </main>
  </div>
+    
+   
 
         <!-- Reusable Footer -->
         <div th:replace="~{fragments/common :: footer}"></div>
     </div>
 </body>
 </html>
+
+
+
+
+

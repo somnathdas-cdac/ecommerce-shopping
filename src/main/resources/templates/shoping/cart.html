@@ -4,185 +4,121 @@
 
 <link rel="stylesheet" th:href="@{/css/header_footer_side_bar.css}">
 <link rel="stylesheet" th:href="@{/css/cart.css}">
- <style>
+<style>
         .container { display: flex; flex-direction: column; height: 100vh; }
         .middle-section { display: flex; flex: 1; }
         .sidebar-container { width: 200px; background: #f4f4f4; }
         .main-window { flex: 1; padding: 20px; }
     </style>
-
+    
+    
+    
 <script th:inline="javascript">
-
-
 function changeQty(index, delta) {
     const qtySpan = document.getElementById('qty-' + index);
+    const hiddenQtyInput = document.getElementById('hidden-qty-' + index); // Added this
     const price = parseFloat(document.getElementById('price-' + index).innerText);
     const subtotalCell = document.getElementById('sub-' + index);
     
     let currentQty = parseInt(qtySpan.innerText);
     let newQty = currentQty + delta;
 
-    // Don't allow quantity less than 1
     if (newQty < 1) return;
 
-    // Update the row
+    // Update the UI
     qtySpan.innerText = newQty;
+    // Update the hidden input so the value is sent to Java
+    hiddenQtyInput.value = newQty; 
+    
     subtotalCell.innerText = (newQty * price).toFixed(2);
-
-    // Update the Grand Total
     updateGrandTotal();
 }
 
 function updateGrandTotal() {
     let total = 0;
-    // Sum up all elements with the 'subtotal' class
     document.querySelectorAll('.subtotal').forEach(cell => {
         total += parseFloat(cell.innerText);
     });
     document.getElementById('grand-total').innerText = total.toFixed(2);
+    document.getElementById('hidden-grand-total').value = total.toFixed(2); // Update hidden grand total
 }
-
-
-
 </script>
+
 
 </head>
 
-
-
-
-
 <body>
+<div class="container">
+    <div th:replace="~{fragments/common :: header}"></div>
+    <div class="middle-section">
+        <aside class="sidebar-container">
+            <div th:replace="~{fragments/common :: sidebar}"></div>
+        </aside>
 
- <div class="container">
-        <!-- Reusable Header -->
-        <div th:replace="~{fragments/common :: header}"></div>
+        <main class="main-window">
+            <div class="cart-container">
+                <h2 th:if="${session.userEmail != null}">
+                    Shopping Cart for: <span th:text="${session.userEmail}"></span>
+                </h2>
 
-        <div class="middle-section">
-            <!-- Reusable Sidebar -->
-            <aside class="sidebar-container">
-                <div th:replace="~{fragments/common :: sidebar}"></div>
-            </aside>
+                <!-- START OF FORM -->
+                <form th:action="@{/checkout}" method="post" th:if="${session.userEmail != null and session.cart != null}">
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item, stat : ${session.cart}">
+                                <td>
+                                    <span th:text="${item.name}">Name</span>
+                                    <!-- Hidden fields to send item details -->
+                                    <input type="hidden" th:name="'items[' + ${stat.index} + '].name'" th:value="${item.name}" />
+                                </td>
+                                <td>
+                                    <span th:id="'price-' + ${stat.index}" th:text="${item.price}">0.00</span>
+                                    <input type="hidden" th:name="'items[' + ${stat.index} + '].price'" th:value="${item.price}" />
+                                </td>
+                                <td>
+                                    <button type="button" th:onclick="'changeQty(' + ${stat.index} + ', -1)'">-</button>
+                                    <span th:id="'qty-' + ${stat.index}" th:text="${item.quantity}">1</span>
+                                    <!-- This hidden input holds the LIVE quantity for the POST request -->
+                                    <input type="hidden" th:id="'hidden-qty-' + ${stat.index}" 
+                                           th:name="'items[' + ${stat.index} + '].quantity'" th:value="${item.quantity}" />
+                                    <button type="button" th:onclick="'changeQty(' + ${stat.index} + ', 1)'">+</button>
+                                </td>
+                                <td class="subtotal" th:id="'sub-' + ${stat.index}" th:text="${item.price * item.quantity}">0.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="3" style="text-align: right;">Grand Total:</th>
+                                <td>
+                                    <span id="grand-total" th:text="${#aggregates.sum(session.cart.![price * quantity])}">0.00</span>
+                                    <input type="hidden" id="hidden-grand-total" name="grandTotal" 
+                                           th:value="${#aggregates.sum(session.cart.![price * quantity])}" />
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
 
+                    <div style="margin-top: 20px; text-align: right;">
+                        <button type="submit" style="padding: 10px 20px; background-color: green; color: white; border: none; cursor: pointer;">
+                            Confirm Order & Checkout
+                        </button>
+                    </div>
+                </form>
+                <!-- END OF FORM -->
 
-
-
-
-  <!-- DYNAMIC MAIN WINDOW -->
-  
-  
-            <main class="main-window">
-            
-				<div class="cart-container">
-            
-            
-            
-            
-		             <h2 th:if="${session.userEmail != null}">
-		              Shopping Cart for: <span th:text="${session.userEmail}"></span>
-		             </h2>
-            
-            
-            
-            
-            
-            
-
-    <!-- Added th:with to get the index of the current item -->
-    
-   <table  th:if="${session.userEmail != null and session.cart != null}"  border="1">
-   	
-   	 <thead>
-       		 <tr>
-           		 <th>Item Name</th>
-           		 <th>Price</th>
-          		 <th>Quantity</th>
-            	<th>Subtotal</th>
-       		 </tr>
-    </thead>
-    
-    
-    <tbody>
-        <tr th:each="item, stat : ${session.cart}">
-            <td th:text="${item.name}">Name</td>
-            
-            <!-- Price -->
-            <td th:id="'price-' + ${stat.index}" th:text="${item.price}">0.00</td>
-            
-            <!-- Quantity Controls -->
-            <td>
-                <button th:onclick="'changeQty(' + ${stat.index} + ', -1)'">-</button>
-                <span th:id="'qty-' + ${stat.index}" th:text="${item.quantity}">1</span>
-                <button th:onclick="'changeQty(' + ${stat.index} + ', 1)'">+</button>
-            </td>
-            
-            <!-- Subtotal (Price * Quantity) -->
-            
-               <td class="subtotal" th:id="'sub-' + ${stat.index}" 
-                   th:text="${item.price * item.quantity}">0.00</td>
-       
-        </tr>
-    </tbody>
-    
-    <tfoot>
-    
-        <tr>
-	            <th colspan="3" style="text-align: right;">Grand Total:</th>
-	            <!-- Calculates the sum of all subtotal values in the list -->
-	            <td id="grand-total" 
-	                th:text="${#aggregates.sum(session.cart.![price * quantity])}">0.00</td>
-        </tr>
-        
-    </tfoot>
-    
-</table>
-
-  
-   <!-- If user tries to view cart without login (via direct URL) -->
-    <div th:if="${session.userEmail == null}">
-        <p>Your session has expired. Please <a th:href="@{/login}">Log In</a> again.</p>
+               
+            </div>
+        </main>
     </div>
-    
-    <!-- If cart is empty -->
-    <div th:if="${session.userEmail != null and (session.cart == null or session.cart.isEmpty())}">
-        <p>Your cart is empty! <a th:href="@{/index}">Go back to shopping</a>.</p>
-    </div>
-  
-  
-  
-  
-  
-       <div th:if="${session.userEmail != null and session.cart != null and !session.cart.isEmpty()}" 
-     style="margin-top: 20px; text-align: right;">
-    
-    <form th:action="@{/checkout}" method="post">
-        <button type="submit" 
-                style="padding: 10px 20px; background-color: green; color: white; border: none; cursor: pointer;">
-            Confirm Order & Checkout
-        </button>
-    </form>
+    <div th:replace="~{fragments/common :: footer}"></div>
 </div>
-  
-    
-    
-    
-
-    <a href="/shop/">Continue Shopping</a>
-    
-    		</div>
-    
-       </main>
- </div>
-    
-   
-
-        <!-- Reusable Footer -->
-        <div th:replace="~{fragments/common :: footer}"></div>
-    </div>
 </body>
 </html>
-
-
-
-
-
